@@ -14,7 +14,7 @@ public class CuponDescuentoException extends Exception {
 		this.status = HttpStatus.INTERNAL_SERVER_ERROR;
 	}
 
-	public CuponDescuentoException(String message, HttpStatus status) {
+	public CuponDescuentoException(HttpStatus status, String message) {
 		super(message);
 		this.status = status;
 	}

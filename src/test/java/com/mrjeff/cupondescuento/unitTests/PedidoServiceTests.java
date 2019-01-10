@@ -41,9 +41,10 @@ public class PedidoServiceTests {
 
 	/**
 	 * Comprueba que el código del cupón válido se ha aplicado correctamente
+	 * @throws CuponDescuentoException 
 	*/
 	@Test
-	public void whenCodigoCuponRecibidoCorrecto(){
+	public void whenCodigoCuponRecibidoCorrecto() throws CuponDescuentoException{
 		// Arrange
 		cuponDescuento = "TEST";
 		productosSeleccionados = new ArrayList<>();
@@ -61,15 +62,17 @@ public class PedidoServiceTests {
 	
 	/**
 	 * Comprueba que el código del cupón no válido no se aplica
+	 * @throws CuponDescuentoException 
 	*/
 	@Test
-	public void whenCodigoCuponRecibidoNoCorrecto(){
+	public void whenCodigoCuponRecibidoNoCorrecto() throws CuponDescuentoException{
 		// Arrange
-		cuponDescuento = "TEST";
+		cuponDescuento = "OTRO";
 		productosSeleccionados = new ArrayList<>();
 		ProductoDTO productoDTO = new ProductoDTO("Camisa", 3.0);
 		productosSeleccionados.add(productoDTO);
 		productoDTO = new ProductoDTO("Traje", 12.0);
+		productosSeleccionados.add(productoDTO);
 		
 		// Act
 		double totalPedido = pedidoService.aplicarCuponDescuento(cuponDescuento, productosSeleccionados);
@@ -80,10 +83,14 @@ public class PedidoServiceTests {
 	
 	/**
 	 * Comprueba que el código del cupón nulo da error de petición incorrecta
+	 * @throws CuponDescuentoException 
 	*/
 	@Test
-	public void whenCodigoCuponRecibidoNulo(){
+	public void whenCodigoCuponRecibidoNulo() throws CuponDescuentoException{
 		// Arrange	
+		thrown.expect(CuponDescuentoException.class);
+		thrown.expectMessage(Constantes.CODIGO_DESCUENTO_REQUEST_INVALIDA_MENSAJE);
+		
 		cuponDescuento = null;
 		productosSeleccionados = new ArrayList<>();
 		ProductoDTO productoDTO = new ProductoDTO("Camisa", 3.0);
@@ -92,18 +99,18 @@ public class PedidoServiceTests {
 		
 		// Act
 		pedidoService.aplicarCuponDescuento(cuponDescuento, productosSeleccionados);
-		
-		//Assert
-		thrown.expect(CuponDescuentoException.class);
-		thrown.expectMessage(Constantes.CODIGO_DESCUENTO_NULO_MENSAJE);
 	}
 	
 	/**
 	 * Comprueba que el código del cupón vacío da error de petición incorrecta
+	 * @throws CuponDescuentoException 
 	*/
 	@Test
-	public void whenCodigoCuponRecibidoVacio(){
+	public void whenCodigoCuponRecibidoVacio() throws CuponDescuentoException{
 		// Arrange
+		thrown.expect(CuponDescuentoException.class);
+		thrown.expectMessage(Constantes.CODIGO_DESCUENTO_REQUEST_INVALIDA_MENSAJE);
+		
 		cuponDescuento = "";
 		productosSeleccionados = new ArrayList<>();
 		ProductoDTO productoDTO = new ProductoDTO("Camisa", 3.0);
@@ -112,52 +119,52 @@ public class PedidoServiceTests {
 		
 		// Act
 		pedidoService.aplicarCuponDescuento(cuponDescuento, productosSeleccionados);
-
-		// Assert
-		thrown.expect(CuponDescuentoException.class);
-		thrown.expectMessage(Constantes.CODIGO_DESCUENTO_VACIO_MENSAJE);
 	}
 	
 	/**
 	* Comprueba que si la lista de producto seleccionados es nulo, da error de petición incorrecta
+	 * @throws CuponDescuentoException 
 	*/
 	@Test
-	public void whenProductosSeleccionadosNulo(){
+	public void whenProductosSeleccionadosNulo() throws CuponDescuentoException{
 		// Arrange
+		thrown.expect(CuponDescuentoException.class);
+		thrown.expectMessage(Constantes.LISTA_PRODUCTOS_REQUEST_INVALIDA_MENSAJE);
+		
 		cuponDescuento = "TEST";
 		productosSeleccionados = null;
 		
 		// Act
 		pedidoService.aplicarCuponDescuento(cuponDescuento, productosSeleccionados);
-
-		// Assert
-		thrown.expect(CuponDescuentoException.class);
-		thrown.expectMessage(Constantes.LISTA_PRODUCTOS_NULO_MENSAJE);
 	}
 	
 	/**
 	*  Comprueba que si la lista de producto seleccionados es vacío, da error de petición incorrecta
+	 * @throws CuponDescuentoException 
 	*/
 	@Test
-	public void whenProductosSeleccionadosVacio(){
+	public void whenProductosSeleccionadosVacio() throws CuponDescuentoException{
 		// Arrange
+		thrown.expect(CuponDescuentoException.class);
+		thrown.expectMessage(Constantes.LISTA_PRODUCTOS_REQUEST_INVALIDA_MENSAJE);
+		
 		cuponDescuento = "TEST";
 		productosSeleccionados = new ArrayList<>();
 		
 		// Act
 		pedidoService.aplicarCuponDescuento(cuponDescuento, productosSeleccionados);
-
-		// Assert
-		thrown.expect(CuponDescuentoException.class);
-		thrown.expectMessage(Constantes.LISTA_PRODUCTOS_NULO_MENSAJE);
 	}
 	
 	/**
 	* Comprueba que si alguno de los productos seleccionados es nulo, de error de petición incorrecta
+	 * @throws CuponDescuentoException 
 	*/
 	@Test
-	public void whenProductoSeleccionadosNulo(){
+	public void whenProductoSeleccionadosNulo() throws CuponDescuentoException{
 		// Arrange
+		thrown.expect(CuponDescuentoException.class);
+		thrown.expectMessage(Constantes.PRODUCTO_NULO_MENSAJE);
+		
 		cuponDescuento = "TEST";
 		productosSeleccionados = new ArrayList<>();
 		ProductoDTO productoDTO = null;
@@ -166,10 +173,6 @@ public class PedidoServiceTests {
 		
 		// Act
 		pedidoService.aplicarCuponDescuento(cuponDescuento, productosSeleccionados);
-
-		// Assert
-		thrown.expect(CuponDescuentoException.class);
-		thrown.expectMessage(Constantes.PRODUCTO_NULO_MENSAJE);
 	}
 	
 
