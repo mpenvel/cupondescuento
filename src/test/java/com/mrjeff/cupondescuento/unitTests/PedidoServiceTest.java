@@ -23,7 +23,7 @@ import com.mrjeff.cupondescuento.services.PedidoService;
 import com.mrjeff.cupondescuento.utils.Constantes;
 
 @RunWith(SpringRunner.class)
-public class PedidoServiceTests {
+public class PedidoServiceTest {
 
 	@InjectMocks
 	private PedidoService pedidoService;
