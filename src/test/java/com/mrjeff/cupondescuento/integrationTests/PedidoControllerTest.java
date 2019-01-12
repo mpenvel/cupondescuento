@@ -32,7 +32,7 @@ import com.mrjeff.cupondescuento.dto.ProductoDTO;
 @AutoConfigureMockMvc
 //@TestPropertySource(
 //  locations = "classpath:application-tests.properties")
-public class PedidoControllerTests {
+public class PedidoControllerTest {
 	@Autowired
 	private MockMvc mvc;
 
