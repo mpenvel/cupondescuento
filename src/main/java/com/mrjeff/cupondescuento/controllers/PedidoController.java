@@ -23,13 +23,10 @@ public class PedidoController {
 	@Autowired
 	private PedidoService pedidoService;
 
-	@PostMapping("/coupon")
+	@PostMapping("/cupon")
 	public ResponseEntity<Double> aplicarCodigoDescuento(@RequestBody CuponDescuentoDTO cuponDescuentoDTO) throws CuponDescuentoException {
-		String codigoCupon = cuponDescuentoDTO.getCodigoCupon();
-		List<Optional<ProductoDTO>> productosSeleccionados = cuponDescuentoDTO.getProductosSeleccionados();
+
 		
-		double totalPedido = pedidoService.aplicarCuponDescuento(codigoCupon, productosSeleccionados);
-		
-		return new ResponseEntity<>(totalPedido, HttpStatus.OK);
+		return new ResponseEntity<>(0.0, HttpStatus.OK);
 	}
 }
