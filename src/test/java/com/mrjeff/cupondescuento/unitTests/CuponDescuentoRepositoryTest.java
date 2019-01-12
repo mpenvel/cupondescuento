@@ -25,10 +25,10 @@ public class CuponDescuentoRepositoryTest {
 	@Test
 	public void whenFindByName_thenReturnEmployee() {
 	 
-	    // when
+	    //Act
 	    Optional<Double> valorEncontrado = cuponDescuentoRepository.findValorByCodigo("TEST");
 	 
-	    // then
+	    //Assert
 	    assertEquals(10, valorEncontrado.get(), 0.001);
 	}
 }

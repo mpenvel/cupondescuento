@@ -147,4 +147,19 @@ public class PedidoControllerTest {
 				.andExpect(status().isBadRequest());
 	}
 
+	@Test
+	public void whenPostPrecioNuloGet400() throws Exception {
+		CuponDescuentoDTO cuponDescuento = new CuponDescuentoDTO();
+		cuponDescuento.setCodigoCupon("");
+		List<Optional<ProductoDTO>> productosSeleccionados = new ArrayList<>();
+		ProductoDTO productoDTO = new ProductoDTO("Camisa", null);
+		productosSeleccionados.add(Optional.of(productoDTO));
+		productoDTO = new ProductoDTO("Traje", 10.0);
+		productosSeleccionados.add(Optional.of(productoDTO));
+		cuponDescuento.setProductosSeleccionados(productosSeleccionados);
+
+		mvc.perform(post("/pedidos/cupon").contentType(MediaType.APPLICATION_JSON)
+				.content(objectMapper.writeValueAsString(cuponDescuento))).andDo(print())
+				.andExpect(status().isBadRequest());
+	}
 }
