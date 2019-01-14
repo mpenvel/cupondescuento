@@ -24,16 +24,22 @@ import io.swagger.annotations.ApiOperation;
 @RequestMapping("/pedidos")
 public class PedidoController {
 
+	private static final Logger LOGGER = LoggerFactory.getLogger(PedidoController.class);
+	
 	@Autowired
 	private PedidoService pedidoService;
 	
 	@PostMapping("/cupon")
 	@ApiOperation(value = "Aplicar código descuento", notes = "Aplica un código de descuento a una lista de productos seleccionados.")
 	public ResponseEntity<Double> aplicarCodigoDescuento(@RequestBody CuponDescuentoDTO cuponDescuentoDTO) throws CuponDescuentoException {
+		LOGGER.info("Petición de aplicar código de descuento recibida");
+		
 		String codigoCupon = cuponDescuentoDTO.getCodigoCupon();
 		List<Optional<ProductoDTO>> productosSeleccionados = cuponDescuentoDTO.getProductosSeleccionados();
 		
 		double totalPedido = pedidoService.aplicarCuponDescuento(codigoCupon, productosSeleccionados);
+		
+		LOGGER.info("Respuesta de aplicar código de descuento enviada");
 		
 		return new ResponseEntity<>(totalPedido, HttpStatus.OK);
 	}
