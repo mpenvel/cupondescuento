@@ -12,7 +12,6 @@ import java.util.Optional;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -26,22 +25,29 @@ import com.fasterxml.jackson.datatype.jdk8.Jdk8Module;
 import com.mrjeff.cupondescuento.CuponDescuentoApplication;
 import com.mrjeff.cupondescuento.dto.CuponDescuentoDTO;
 import com.mrjeff.cupondescuento.dto.ProductoDTO;
+import com.mrjeff.cupondescuento.persistence.entities.CuponDescuentoEntity;
+import com.mrjeff.cupondescuento.persistence.repositories.CuponDescuentoRepository;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT, classes = CuponDescuentoApplication.class)
 @AutoConfigureMockMvc
-//@TestPropertySource(
-//  locations = "classpath:application-tests.properties")
 public class PedidoControllerTest {
 	@Autowired
 	private MockMvc mvc;
 
 	private ObjectMapper objectMapper;
+	
+	@Autowired
+	private CuponDescuentoRepository cuponDescuentoRepository;
 
 	@Before
 	public void setUp() throws Exception {
 		objectMapper = new ObjectMapper();
 		objectMapper.registerModule(new Jdk8Module());
+		CuponDescuentoEntity cuponDescuento = new CuponDescuentoEntity();
+		cuponDescuento.setCodigo("TEST");
+		cuponDescuento.setValor(10.0);
+		cuponDescuentoRepository.save(cuponDescuento);
 	}
 
 	@Test
