@@ -54,5 +54,5 @@ mvnw.cmd
 hs_err_pid*
 
 # Docker #
-/docker/data
-/docker/jar
+/docker/data/
+/docker/jar/
