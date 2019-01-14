@@ -1,0 +1,1 @@
+En esta carpeta irá un archivo jar que se desplegará en un contenedor. El archivo se tiene que llamar cupondescuento.jar

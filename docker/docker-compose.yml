@@ -1,0 +1,27 @@
+version: "3"
+
+services:
+  mysql:
+    image: mysql:latest
+    volumes:
+      - "../scripts/:/docker-entrypoint-initdb.d/"
+      - "./data:/var/lib/mysql"
+    ports:
+      - "3306:3306"
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: admin1234
+    
+
+  java:
+    image: openjdk:8-jdk-alpine
+    ports:
+      - "8888:8888"
+    restart: on-failure
+    volumes:
+      - "./jar:/cupondescuento"
+    entrypoint: ["java", "-jar", "cupondescuento/cupondescuento.jar"]
+    depends_on:
+      - mysql
+    links:
+      - mysql
