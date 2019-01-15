@@ -63,12 +63,11 @@ public class PedidoControllerTest {
 
 		cuponDescuento.setProductosSeleccionados(productosSeleccionados);
 
-		// @formatter:off
+
 		mvc.perform(post("/pedidos/cupon").contentType(MediaType.APPLICATION_JSON)
 				.content(objectMapper.writeValueAsString(cuponDescuento))).andDo(print()).andExpect(status().isOk())
 				.andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
 				.andExpect(content().string("3.0"));
-		// @formatter:on
 	}
 
 	@Test
